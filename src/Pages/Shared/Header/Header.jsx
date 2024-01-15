@@ -1,22 +1,30 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { Fragment } from "react";
 import logo from "../../../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const navigation = [
-  { name: "Home", to: "/", current: true },
-  { name: "All Toys", to: "/toys", current: false },
-  { name: "Projects", to: "/", current: false },
-  { name: "Calendar", to: "/", current: false },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const Header = () => {
+  const paddingClass = (name, route) => {
+    return (
+      <>
+        <NavLink
+          to={route}
+          className={({ isActive, isPending }) =>
+            isPending
+              ? "pending"
+              : isActive
+              ? "bg-pink-600 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-5 py-2"
+              : "text-gray-500 text-base font-medium font-['Inter'] leading-normal  hover:bg-pink-600 hover:text-white rounded-md px-5 py-2"
+          }
+        >
+          {name}
+        </NavLink>
+      </>
+    );
+  };
+
   return (
     <header className="container mx-auto px-5">
       <Disclosure as="nav" className="bg-white">
@@ -47,54 +55,10 @@ const Header = () => {
                 </div>
                 <div className="hidden md:block">
                   <div className="flex space-x-5">
-                    <NavLink
-                      to="/"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                          : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                      }
-                    >
-                      Home
-                    </NavLink>
-                    <NavLink
-                      to="/all-toys"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                          : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                      }
-                    >
-                      All Toys
-                    </NavLink>
-                    <NavLink
-                      to="/my-toys"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                          : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                      }
-                    >
-                      My Toys
-                    </NavLink>
-                    <NavLink
-                      to="/add-toy"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                          : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                      }
-                    >
-                      Add A Toy
-                    </NavLink>
+                    {paddingClass("Home", "/")}
+                    {paddingClass("All Toys", "/all-toys")}
+                    {paddingClass("My Toys", "/my-toys")}
+                    {paddingClass("Add A Toy", "/add-toy")}
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:pr-0">
@@ -119,7 +83,7 @@ const Header = () => {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="h-8 w-8 rounded-full"
+                          className="h-10 w-10 rounded-full"
                           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                           alt=""
                         />
@@ -184,54 +148,10 @@ const Header = () => {
             {/* Mobile Device */}
             <Disclosure.Panel className="md:hidden">
               <div className="flex flex-col space-y-1 px-2 sm:px-6 lg:px-8 pb-3 pt-2">
-                <NavLink
-                  to="/"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? "pending"
-                      : isActive
-                      ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                      : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                  }
-                >
-                  Home
-                </NavLink>
-                <NavLink
-                  to="/all-toys"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? "pending"
-                      : isActive
-                      ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                      : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                  }
-                >
-                  All Toys
-                </NavLink>
-                <NavLink
-                  to="/my-toys"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? "pending"
-                      : isActive
-                      ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                      : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                  }
-                >
-                  My Toys
-                </NavLink>
-                <NavLink
-                  to="/add-toy"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? "pending"
-                      : isActive
-                      ? "bg-gray-900 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 py-2"
-                      : "text-gray-500 text-base font-medium font-['Inter'] leading-normal hover:bg-gray-700 hover:text-white rounded-md px-3 py-2"
-                  }
-                >
-                  Add A Toy
-                </NavLink>
+                {paddingClass("Home", "/")}
+                {paddingClass("All Toys", "/all-toys")}
+                {paddingClass("My Toys", "/my-toys")}
+                {paddingClass("Add A Toy", "/add-toy")}
               </div>
             </Disclosure.Panel>
           </>
