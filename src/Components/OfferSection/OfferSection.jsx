@@ -26,14 +26,14 @@ const OfferSection = () => {
                 </div>
             </div>
             <div className="bg-violet-50 rounded-lg border-2 border-dashed border-indigo-400 flex items-center gap-4 p-[33px]">
-                <img src={born_Care} alt="" />
+                <img src={toddlers} alt="" />
                 <div>
                     <h4 className="text-indigo-400 text-2xl font-bold font-['Nunito'] leading-tight">New Born & Baby Care Shop</h4>
                     <p className="text-neutral-400 text-sm font-semibold font-['Nunito'] mt-3 leading-tight">Mauris vitae erat non nisi consequat</p>
                 </div>
             </div>
             <div className="bg-slate-50 rounded-lg border-2 border-dashed border-teal-500 flex items-center gap-4 p-[33px]">
-                <img src={born_Care} alt="" />
+                <img src={toys_games} alt="" />
                 <div>
                     <h4 className="text-teal-500 text-2xl font-bold font-['Nunito'] leading-tight">New Born & Baby Care Shop</h4>
                     <p className="text-neutral-400 text-sm font-semibold font-['Nunito'] mt-3 leading-tight">Mauris vitae erat non nisi consequat</p>
