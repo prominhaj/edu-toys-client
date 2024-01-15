@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer
-      className="bg-contain bg-no-repeat bg-[#F4F2F0]"
+      className="bg-cover bg-no-repeat"
       style={{ backgroundImage: `url('${footerBg}')` }}
     >
       <div className="container flex flex-wrap md:flex-nowrap items-center mx-auto px-4 py-[50px] justify-between gap-10 md:px-8">
