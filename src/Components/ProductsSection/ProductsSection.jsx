@@ -93,6 +93,7 @@ const ProductsSection = () => {
               <Tab _selected={{ color: "white", bg: "pink.500" }}>Bikes</Tab>
             </TabList>
             <TabPanels className="py-8">
+                {/* Cars Category */}
               <TabPanel>
                 <Slider {...settings}>
                   <ProductCard></ProductCard>
@@ -105,6 +106,7 @@ const ProductsSection = () => {
                   <ProductCard></ProductCard>
                 </Slider>
               </TabPanel>
+              {/* Trucks Category */}
               <TabPanel>
                 <Slider {...settings}>
                   <ProductCard></ProductCard>
@@ -117,6 +119,7 @@ const ProductsSection = () => {
                   <ProductCard></ProductCard>
                 </Slider>
               </TabPanel>
+              {/* Air Plane Category */}
               <TabPanel>
                 <Slider {...settings}>
                   <ProductCard></ProductCard>
@@ -129,6 +132,7 @@ const ProductsSection = () => {
                   <ProductCard></ProductCard>
                 </Slider>
               </TabPanel>
+              {/* Bikes Category */}
               <TabPanel>
                 <Slider {...settings}>
                   <ProductCard></ProductCard>
