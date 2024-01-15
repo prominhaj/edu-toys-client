@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer
-      className="bg-cover bg-no-repeat"
+      className="bg-cover bg-no-repeat px-5"
       style={{ backgroundImage: `url('${footerBg}')` }}
     >
-      <div className="container flex flex-wrap md:flex-nowrap items-center mx-auto px-4 py-[50px] justify-between gap-10 md:px-8">
+      <div className="container flex flex-wrap md:flex-nowrap items-center mx-auto py-[50px] justify-between gap-10">
         <div>
           <img src={footerImg} alt="" />
         </div>

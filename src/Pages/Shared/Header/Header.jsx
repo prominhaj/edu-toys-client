@@ -18,11 +18,11 @@ function classNames(...classes) {
 
 const Header = () => {
   return (
-    <header className="container mx-auto">
+    <header className="container mx-auto px-5">
       <Disclosure as="nav" className="bg-white">
         {({ open }) => (
           <>
-            <div className="px-2 sm:px-6 lg:px-8">
+            <div className="">
               <div className="relative flex py-4 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                   {/* Mobile menu button*/}
