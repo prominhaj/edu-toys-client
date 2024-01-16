@@ -180,6 +180,7 @@ const ProductsSection = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          setProducts(prevState => [...prevState, newToy]);
           setLoading(false);
           toast({
             title: "Toy Add SuccessFull",
