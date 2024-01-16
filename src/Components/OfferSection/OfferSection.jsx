@@ -15,7 +15,7 @@ const OfferSection = () => {
         </h2>
         <div className="grid lg:grid-cols-2 gap-10 pt-8 items-center md:px-16">
           <div className="w-full">
-            <img src={darry} alt="" />
+            <img className="drop-shadow-2xl" src={darry} alt="" />
           </div>
           <div className="flex w-full flex-col gap-8">
             <div className="bg-orange-50 rounded-lg border-2 border-dashed border-amber-400 flex items-center flex-wrap gap-4 p-[33px]">

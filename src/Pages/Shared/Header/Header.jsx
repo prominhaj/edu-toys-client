@@ -7,7 +7,6 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Header = () => {
   const paddingClass = (name, route, ...rest) => {
-    console.log(rest[0]);
     return (
       <>
         <NavLink

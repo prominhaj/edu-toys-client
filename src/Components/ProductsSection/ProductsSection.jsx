@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import products_bg from "../../assets/Product-Section/Product-bg.png";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import ProductCard from "../ProductCard/ProductCard";
@@ -11,11 +11,10 @@ const settings = {
   infinite: true,
   speed: 1500,
   slidesToShow: 4,
-  slidesToScroll: 1,
+  slidesToScroll: 2,
   initialSlide: 0,
   autoplay: true,
   autoplaySpeed: 3000,
-  cssEase: "linear",
   pauseOnHover: true,
   appendDots: (dots) => (
     <div
@@ -33,7 +32,7 @@ const settings = {
       breakpoint: 1280,
       settings: {
         slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToScroll: 1,
         initialSlide: 3,
       },
     },
@@ -64,6 +63,14 @@ const settings = {
 };
 
 const ProductsSection = () => {
+  const [cars, setCars] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/cars')
+    .then(res => res.json())
+    .then(data => setCars(data));
+  }, [])
+
   return (
     <div
       className="bg-cover bg-no-repeat"
@@ -96,53 +103,50 @@ const ProductsSection = () => {
                 {/* Cars Category */}
               <TabPanel>
                 <Slider {...settings}>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                </Slider>
+
+                  {
+                    cars.map(car => <ProductCard key={car._id} car={car}></ProductCard>)
+                  }
+
+                  </Slider>
               </TabPanel>
               {/* Trucks Category */}
               <TabPanel>
                 <Slider {...settings}>
+                  {/* <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
+                  <ProductCard></ProductCard> */}
                 </Slider>
               </TabPanel>
               {/* Air Plane Category */}
               <TabPanel>
                 <Slider {...settings}>
+                  {/* <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
+                  <ProductCard></ProductCard> */}
                 </Slider>
               </TabPanel>
               {/* Bikes Category */}
               <TabPanel>
                 <Slider {...settings}>
+                  {/* <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
                   <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
+                  <ProductCard></ProductCard> */}
                 </Slider>
               </TabPanel>
             </TabPanels>
