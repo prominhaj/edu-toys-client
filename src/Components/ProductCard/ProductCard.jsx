@@ -11,11 +11,12 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Rating } from 'primereact/rating';
+import { Rating } from "primereact/rating";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setLoading }) => {
   const [details, setDetails] = useState({});
 
   const OverlayOne = () => (
@@ -24,15 +25,20 @@ const ProductCard = ({ product }) => {
       backdropFilter="blur(10px) hue-rotate(90deg)"
     />
   );
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = React.useState(<OverlayOne />);
 
   const { name, picture, price, _id } = product;
 
   const handleDetails = (id) => {
+    setLoading(true);
     fetch(`http://localhost:5000/product/${id}`)
       .then((res) => res.json())
-      .then((data) => setDetails(data));
+      .then((data) => {
+        setDetails(data);
+        setLoading(false);
+      });
   };
 
   return (
@@ -64,7 +70,7 @@ const ProductCard = ({ product }) => {
               <ModalHeader className="text-black text-lg font-medium font-['Inter'] leading-tight">
                 {details.name}
               </ModalHeader>
-              <ModalCloseButton />
+              <ModalCloseButton className="!text-red-600 !text-xl !p-3" />
               <ModalBody>
                 <div>
                   <img className="w-full py-4" src={details.picture} alt="" />
@@ -76,7 +82,13 @@ const ProductCard = ({ product }) => {
                       </span>
                     </h6>
                     <h6 className="text-black text-lg font-medium font-['Inter'] leading-tight flex gap-2">
-                      Ratings: <Rating className="text-yellow-400 flex gap-1" value={details.ratings} readOnly cancel={false} />
+                      Ratings:{" "}
+                      <Rating
+                        className="text-yellow-400 flex gap-1"
+                        value={details.ratings}
+                        readOnly
+                        cancel={false}
+                      />
                     </h6>
                     <h6 className="text-black text-lg font-medium font-['Inter'] leading-tight">
                       Category: <span>{details.categoryID}</span>
@@ -88,7 +100,12 @@ const ProductCard = ({ product }) => {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
+                <Button
+                  className="!bg-pink-600 !text-white !text-base !font-medium !font-['Inter'] !leading-normal !rounded-md !px-3 !lg:px-5 !py-2"
+                  onClick={onClose}
+                >
+                  Close
+                </Button>
               </ModalFooter>
             </ModalContent>
           </Modal>

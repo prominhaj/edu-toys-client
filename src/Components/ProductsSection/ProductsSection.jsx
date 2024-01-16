@@ -74,9 +74,13 @@ const ProductsSection = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch("http://localhost:5000/cars")
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
   }, []);
 
   const handleCars = () => {
@@ -188,6 +192,7 @@ const ProductsSection = () => {
                   {products.map((product) => (
                     <ProductCard
                       key={product._id}
+                      setLoading={setLoading}
                       product={product}
                     ></ProductCard>
                   ))}
@@ -199,6 +204,7 @@ const ProductsSection = () => {
                   {products.map((product) => (
                     <ProductCard
                       key={product._id}
+                      setLoading={setLoading}
                       product={product}
                     ></ProductCard>
                   ))}
@@ -210,6 +216,7 @@ const ProductsSection = () => {
                   {products.map((product) => (
                     <ProductCard
                       key={product._id}
+                      setLoading={setLoading}
                       product={product}
                     ></ProductCard>
                   ))}
@@ -221,6 +228,7 @@ const ProductsSection = () => {
                   {products.map((product) => (
                     <ProductCard
                       key={product._id}
+                      setLoading={setLoading}
                       product={product}
                     ></ProductCard>
                   ))}
