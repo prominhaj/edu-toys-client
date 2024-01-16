@@ -2,15 +2,30 @@
 import React, { useEffect, useState } from "react";
 import products_bg from "../../assets/Product-Section/Product-bg.png";
 import {
+  Button,
+  Input,
+  InputGroup,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
   Spinner,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
+  Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import ProductCard from "../ProductCard/ProductCard";
 import Slider from "react-slick/lib/slider";
+import { IoCreateOutline } from "react-icons/io5";
+import { Rating } from "primereact/rating";
 
 // Slider Config
 const settings = {
@@ -72,6 +87,11 @@ const settings = {
 const ProductsSection = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [value, setValue] = useState(null);
+
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -169,6 +189,161 @@ const ProductsSection = () => {
                 Bikes
               </Tab>
             </TabList>
+
+            {/* Add New Toy */}
+            <div className="text-center md:text-end mt-4 md:mt-0">
+              <Button
+                className="!bg-pink-600 !text-white !text-base !font-medium !font-['Inter'] !leading-normal !rounded-md !px-3 !lg:px-5 !py-2"
+                onClick={onOpen}
+              >
+                <IoCreateOutline className="w-8 h-6" /> Add New Toy
+              </Button>
+            </div>
+            {/* Modal */}
+            <Modal
+              size={"4xl"}
+              initialFocusRef={initialRef}
+              finalFocusRef={finalRef}
+              isOpen={isOpen}
+              isCentered
+              onClose={onClose}
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <form>
+                  <ModalHeader>Add New Toy</ModalHeader>
+                  <ModalCloseButton className="!text-red-600 !text-xl !p-3" />
+                  <ModalBody pb={6}>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {/* Row 1 */}
+                      <InputGroup>
+                        <label
+                          className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-0 text-md rounded-tl-md rounded-bl-md"
+                          htmlFor="name"
+                        >
+                          Name
+                        </label>
+                        <Input
+                          id="name"
+                          className="!text-lg"
+                          type="text"
+                          placeholder="Toy Name"
+                          required
+                        />
+                      </InputGroup>
+                      <InputGroup>
+                        <label
+                          className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-0 text-md rounded-tl-md rounded-bl-md"
+                          htmlFor="Price"
+                        >
+                          Price
+                        </label>
+                        <Input
+                          id="Price"
+                          className="!text-lg"
+                          type="number"
+                          placeholder="$"
+                          required
+                        />
+                      </InputGroup>
+
+                      <InputGroup>
+                        <label
+                          className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-0 text-md rounded-tl-md rounded-bl-md"
+                          htmlFor="Photo"
+                        >
+                          Photo
+                        </label>
+                        <Input
+                          id="Photo"
+                          className="!text-lg"
+                          type="url"
+                          placeholder="Photo URL"
+                          required
+                        />
+                      </InputGroup>
+
+                      <Select size="md" placeholder="Select Category" required>
+                        <option value="cars">Cars</option>
+                        <option value="airplanes">Air Planes</option>
+                        <option value="trucks">Trucks</option>
+                        <option value="bikes">Bikes</option>
+                      </Select>
+
+                      <InputGroup>
+                        <label
+                          className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-0 text-md rounded-tl-md rounded-bl-md"
+                          htmlFor="user"
+                        >
+                          User
+                        </label>
+                        <Input
+                          id="user"
+                          className="!text-lg"
+                          type="text"
+                          placeholder="User Name"
+                          required
+                        />
+                      </InputGroup>
+                      <InputGroup>
+                        <label
+                          className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-0 text-md rounded-tl-md rounded-bl-md"
+                          htmlFor="Email"
+                        >
+                          Email
+                        </label>
+                        <Input
+                          id="Email"
+                          className="!text-lg"
+                          type="email"
+                          placeholder="Email"
+                          required
+                        />
+                      </InputGroup>
+
+                      <div className="flex gap-3 md:col-span-2">
+                        <label
+                          className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-2 text-md rounded-tl-md rounded-bl-md"
+                          htmlFor="rating"
+                        >
+                          Rating
+                        </label>
+                        <Rating
+                          className="!flex gap-2"
+                          value={value}
+                          cancel={false}
+                          onChange={(e) => setValue(e.value)}
+                          pt={{
+                            onIcon: { className: "text-orange-400 w-6 h-6" },
+                            offIcon: {
+                              className: "w-6 h-6",
+                            },
+                          }}
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <Textarea required placeholder="Toy Description ..." />
+                      </div>
+                    </div>
+                  </ModalBody>
+
+                  <ModalFooter>
+                    <button
+                      disabled={value ? false : true}
+                      className="!bg-pink-600 !text-white !text-lg !font-medium !font-['Inter'] !leading-normal !rounded-md !px-4 !lg:px-6 !py-2 mr-5"
+                      type="submit"
+                    >
+                      Save
+                    </button>
+                    <Button type="button" onClick={onClose}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </form>
+              </ModalContent>
+            </Modal>
+
+            {/* Modal End */}
 
             {/* Loading */}
             {loading ? (
