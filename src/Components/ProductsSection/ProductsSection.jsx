@@ -20,6 +20,7 @@ import {
   TabPanels,
   Tabs,
   Textarea,
+  useToast,
   useDisclosure,
 } from "@chakra-ui/react";
 import ProductCard from "../ProductCard/ProductCard";
@@ -67,7 +68,7 @@ const settings = {
       },
     },
     {
-      breakpoint: 550,
+      breakpoint: 700,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -87,11 +88,13 @@ const settings = {
 const ProductsSection = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState(null);
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   useEffect(() => {
     setLoading(true);
@@ -143,6 +146,63 @@ const ProductsSection = () => {
       });
   };
 
+  const handleAddNewToy = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const price = form.price.value;
+    const picture = form.photo.value;
+    const categoryID = form.category.value;
+    const user = form.user.value;
+    const email = form.email.value;
+    const ratings = value;
+    const description = form.description.value;
+
+    const newToy = {
+      name,
+      price,
+      picture,
+      categoryID,
+      user,
+      email,
+      ratings,
+      description,
+    };
+
+    fetch("http://localhost:5000/addnewtoy", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newToy),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          setLoading(false);
+          toast({
+            title: "Toy Add SuccessFull",
+            status: "success",
+            position: "top",
+            duration: 9000,
+            isClosable: true,
+          });
+          form.reset();
+          onClose()
+        }
+        else{
+          setLoading(false);
+          toast({
+            title: "SameThing is Wrong Places Try Again",
+            status: "error",
+            position: 'top',
+            duration: 9000,
+            isClosable: true,
+          })
+        }
+      });
+  };
   return (
     <div
       className="bg-cover bg-no-repeat"
@@ -210,7 +270,7 @@ const ProductsSection = () => {
             >
               <ModalOverlay />
               <ModalContent>
-                <form>
+                <form onSubmit={handleAddNewToy}>
                   <ModalHeader>Add New Toy</ModalHeader>
                   <ModalCloseButton className="!text-red-600 !text-xl !p-3" />
                   <ModalBody pb={6}>
@@ -226,6 +286,7 @@ const ProductsSection = () => {
                         <Input
                           id="name"
                           className="!text-lg"
+                          name="name"
                           type="text"
                           placeholder="Toy Name"
                           required
@@ -242,6 +303,7 @@ const ProductsSection = () => {
                           id="Price"
                           className="!text-lg"
                           type="number"
+                          name="price"
                           placeholder="$"
                           required
                         />
@@ -258,12 +320,18 @@ const ProductsSection = () => {
                           id="Photo"
                           className="!text-lg"
                           type="url"
+                          name="photo"
                           placeholder="Photo URL"
                           required
                         />
                       </InputGroup>
 
-                      <Select size="md" placeholder="Select Category" required>
+                      <Select
+                        name="category"
+                        size="md"
+                        placeholder="Select Category"
+                        required
+                      >
                         <option value="cars">Cars</option>
                         <option value="airplanes">Air Planes</option>
                         <option value="trucks">Trucks</option>
@@ -280,6 +348,7 @@ const ProductsSection = () => {
                         <Input
                           id="user"
                           className="!text-lg"
+                          name="user"
                           type="text"
                           placeholder="User Name"
                           required
@@ -296,6 +365,7 @@ const ProductsSection = () => {
                           id="Email"
                           className="!text-lg"
                           type="email"
+                          name="email"
                           placeholder="Email"
                           required
                         />
@@ -322,7 +392,11 @@ const ProductsSection = () => {
                         />
                       </div>
                       <div className="md:col-span-2">
-                        <Textarea required placeholder="Toy Description ..." />
+                        <Textarea
+                          name="description"
+                          required
+                          placeholder="Toy Description ..."
+                        />
                       </div>
                     </div>
                   </ModalBody>
@@ -330,7 +404,7 @@ const ProductsSection = () => {
                   <ModalFooter>
                     <button
                       disabled={value ? false : true}
-                      className="!bg-pink-600 !text-white !text-lg !font-medium !font-['Inter'] !leading-normal !rounded-md !px-4 !lg:px-6 !py-2 mr-5"
+                      className="bg-pink-600 text-white text-lg font-medium font-['Inter'] leading-normal rounded-md px-4 lg:px-6 py-2 mr-6"
                       type="submit"
                     >
                       Save
