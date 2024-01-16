@@ -49,7 +49,7 @@ const Header = () => {
               <div className="flex flex-1 md:flex-[0] items-center justify-center  md:justify-start">
                 <Link to="/" className="flex flex-shrink-0 items-center">
                   <img
-                    className="w-[90px] h-[48px]"
+                    className="w-full h-[60px]"
                     src={logo}
                     alt="Your Company"
                   />

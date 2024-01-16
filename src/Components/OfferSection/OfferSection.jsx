@@ -13,26 +13,26 @@ const OfferSection = () => {
         <h2 className="text-pink-600 text-center text-2xl font-bold font-['Nunito'] leading-tight">
           Our Offer
         </h2>
-        <div className="grid md:grid-cols-2 pt-8 items-center px-16">
-          <div>
+        <div className="grid lg:grid-cols-2 gap-10 pt-8 items-center md:px-16">
+          <div className="w-full">
             <img src={darry} alt="" />
           </div>
-          <div className="flex flex-col gap-8">
-            <div className="bg-orange-50 rounded-lg border-2 border-dashed border-amber-400 flex items-center gap-4 p-[33px]">
+          <div className="flex w-full flex-col gap-8">
+            <div className="bg-orange-50 rounded-lg border-2 border-dashed border-amber-400 flex items-center flex-wrap gap-4 p-[33px]">
                 <img src={born_Care} alt="" />
                 <div>
                     <h4 className="text-amber-400 text-2xl font-bold font-['Nunito'] leading-tight">New Born & Baby Care Shop</h4>
                     <p className="text-neutral-400 text-sm font-semibold font-['Nunito'] mt-3 leading-tight">Mauris vitae erat non nisi consequat</p>
                 </div>
             </div>
-            <div className="bg-violet-50 rounded-lg border-2 border-dashed border-indigo-400 flex items-center gap-4 p-[33px]">
+            <div className="bg-violet-50 rounded-lg border-2 border-dashed border-indigo-400 flex items-center flex-wrap gap-4 p-[33px]">
                 <img src={toddlers} alt="" />
                 <div>
                     <h4 className="text-indigo-400 text-2xl font-bold font-['Nunito'] leading-tight">New Born & Baby Care Shop</h4>
                     <p className="text-neutral-400 text-sm font-semibold font-['Nunito'] mt-3 leading-tight">Mauris vitae erat non nisi consequat</p>
                 </div>
             </div>
-            <div className="bg-slate-50 rounded-lg border-2 border-dashed border-teal-500 flex items-center gap-4 p-[33px]">
+            <div className="bg-slate-50 rounded-lg border-2 border-dashed border-teal-500 flex items-center flex-wrap gap-4 p-[33px]">
                 <img src={toys_games} alt="" />
                 <div>
                     <h4 className="text-teal-500 text-2xl font-bold font-['Nunito'] leading-tight">New Born & Baby Care Shop</h4>

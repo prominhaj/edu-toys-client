@@ -4,6 +4,7 @@ import HeroSection from '../../Components/HeroSection/HeroSection';
 import Search from '../../Components/Search/Search';
 import ProductsSection from '../../Components/ProductsSection/ProductsSection';
 import OfferSection from '../../Components/OfferSection/OfferSection';
+import ImageSlider from '../../Components/ImageSlider/ImageSlider';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <Search></Search>
             <ProductsSection></ProductsSection>
             <OfferSection></OfferSection>
+            <ImageSlider></ImageSlider>
         </div>
     );
 };
