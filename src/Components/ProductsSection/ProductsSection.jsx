@@ -404,7 +404,7 @@ const ProductsSection = () => {
                   <ModalFooter>
                     <button
                       disabled={value ? false : true}
-                      className="bg-pink-600 text-white text-lg font-medium font-['Inter'] leading-normal rounded-md px-4 lg:px-6 py-2 mr-6"
+                      className={`bg-pink-600 text-white text-lg font-medium font-['Inter'] leading-normal rounded-md px-4 lg:px-6 py-2 mr-6 ${value ? '' : 'cursor-not-allowed opacity-50'}`}
                       type="submit"
                     >
                       Save
