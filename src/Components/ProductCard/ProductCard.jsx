@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { Rating } from 'primereact/rating';
 
-const ProductCard = ({ car }) => {
+const ProductCard = ({ product }) => {
   const [details, setDetails] = useState({});
 
   const OverlayOne = () => (
@@ -27,7 +27,7 @@ const ProductCard = ({ car }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = React.useState(<OverlayOne />);
 
-  const { name, picture, price, _id } = car;
+  const { name, picture, price, _id } = product;
 
   const handleDetails = (id) => {
     fetch(`http://localhost:5000/product/${id}`)

@@ -1,7 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import products_bg from "../../assets/Product-Section/Product-bg.png";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import ProductCard from "../ProductCard/ProductCard";
 import Slider from "react-slick/lib/slider";
 
@@ -63,13 +70,54 @@ const settings = {
 };
 
 const ProductsSection = () => {
-  const [cars, setCars] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/cars')
-    .then(res => res.json())
-    .then(data => setCars(data));
-  }, [])
+    fetch("http://localhost:5000/cars")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
+  const handleCars = () => {
+    setLoading(true);
+    fetch("http://localhost:5000/cars")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  };
+
+  const handleTrucks = () => {
+    setLoading(true);
+    fetch("http://localhost:5000/trucks")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  };
+
+  const handleAirPlane = () => {
+    setLoading(true);
+    fetch("http://localhost:5000/airplane")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  };
+
+  const handleBikes = () => {
+    setLoading(true);
+    fetch("http://localhost:5000/bikes")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  };
 
   return (
     <div
@@ -92,61 +140,90 @@ const ProductsSection = () => {
         <div className="py-5">
           <Tabs variant="soft-rounded">
             <TabList className="flex flex-wrap items-center !justify-center gap-5">
-              <Tab _selected={{ color: "white", bg: "pink.500" }}>Cars</Tab>
-              <Tab _selected={{ color: "white", bg: "pink.500" }}>Trucks</Tab>
-              <Tab _selected={{ color: "white", bg: "pink.500" }}>
+              <Tab
+                onClick={handleCars}
+                _selected={{ color: "white", bg: "pink.500" }}
+              >
+                Cars
+              </Tab>
+              <Tab
+                onClick={handleTrucks}
+                _selected={{ color: "white", bg: "pink.500" }}
+              >
+                Trucks
+              </Tab>
+              <Tab
+                onClick={handleAirPlane}
+                _selected={{ color: "white", bg: "pink.500" }}
+              >
                 Air Plane
               </Tab>
-              <Tab _selected={{ color: "white", bg: "pink.500" }}>Bikes</Tab>
+              <Tab
+                onClick={handleBikes}
+                _selected={{ color: "white", bg: "pink.500" }}
+              >
+                Bikes
+              </Tab>
             </TabList>
+
+            {/* Loading */}
+            {loading ? (
+              <div className="text-center mt-10">
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="xl"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+
             <TabPanels className="py-8">
-                {/* Cars Category */}
+              {/* Cars Category */}
               <TabPanel>
                 <Slider {...settings}>
-
-                  {
-                    cars.map(car => <ProductCard key={car._id} car={car}></ProductCard>)
-                  }
-
-                  </Slider>
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                    ></ProductCard>
+                  ))}
+                </Slider>
               </TabPanel>
               {/* Trucks Category */}
               <TabPanel>
                 <Slider {...settings}>
-                  {/* <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard> */}
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                    ></ProductCard>
+                  ))}
                 </Slider>
               </TabPanel>
               {/* Air Plane Category */}
               <TabPanel>
                 <Slider {...settings}>
-                  {/* <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard> */}
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                    ></ProductCard>
+                  ))}
                 </Slider>
               </TabPanel>
               {/* Bikes Category */}
               <TabPanel>
                 <Slider {...settings}>
-                  {/* <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard>
-                  <ProductCard></ProductCard> */}
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                    ></ProductCard>
+                  ))}
                 </Slider>
               </TabPanel>
             </TabPanels>
