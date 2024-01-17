@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { Rating } from "primereact/rating";
 
-const ProductCard = ({ product, setLoading }) => {
+const ProductCard = ({ product, setLoading, shopPage }) => {
   const [details, setDetails] = useState({});
 
   const OverlayOne = () => (
@@ -29,7 +29,7 @@ const ProductCard = ({ product, setLoading }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [overlay, setOverlay] = React.useState(<OverlayOne />);
 
-  const { name, picture, price, _id } = product;
+  const { name, picture, price, _id, ratings } = product;
 
   const handleDetails = (id) => {
     setLoading(true);
@@ -42,14 +42,31 @@ const ProductCard = ({ product, setLoading }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg border mx-[10px] border-stone-300">
+    <div
+      className={`bg-white rounded-lg border border-stone-300 ${
+        shopPage || "mx-[10px]"
+      }`}
+    >
       <div className="px-8 py-4">
         <img className="w-full h-40 rounded-md sm:h-48" src={picture} alt="" />
       </div>
       <footer className="bg-[#FAF5F9] rounded-lg border border-stone-300 py-[15px] px-[30px] flex flex-col gap-5">
-        <h2 className="text-black text-lg font-medium font-['Inter'] leading-tight">
-          {name.slice(0, 30)}
-        </h2>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-black text-lg font-medium font-['Inter'] leading-tight">
+            {name.slice(0, 30)}
+          </h2>
+          {shopPage && (
+            <h6 className="text-black text-lg font-medium font-['Inter'] leading-tight flex gap-2">
+              Ratings:{" "}
+              <Rating
+                className="text-yellow-400 flex gap-1"
+                value={ratings}
+                readOnly
+                cancel={false}
+              />
+            </h6>
+          )}
+        </div>
         <div className="flex items-center justify-between">
           <h4 className="text-pink-600 text-xl font-bold font-['Inter'] leading-tight">
             ${price}
@@ -93,6 +110,11 @@ const ProductCard = ({ product, setLoading }) => {
                     <h6 className="text-black text-lg font-medium font-['Inter'] leading-tight">
                       Category: <span>{details.categoryID}</span>
                     </h6>
+                    {details.user && (
+                      <h6 className="text-black text-lg font-medium font-['Inter'] leading-tight">
+                        Seller Name: <span>{details?.user}</span>
+                      </h6>
+                    )}
                     <p className="text-black text-md font-normal font-['Inter'] leading-tight">
                       Description: {details.description}
                     </p>

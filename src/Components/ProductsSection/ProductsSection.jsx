@@ -264,7 +264,7 @@ const ProductsSection = () => {
                 </Button>
               </div>
             )}
-            
+
             {/* Modal */}
             <Modal
               size={"4xl"}
@@ -451,6 +451,7 @@ const ProductsSection = () => {
                       key={product._id}
                       setLoading={setLoading}
                       product={product}
+                      shopPage={false}
                     ></ProductCard>
                   ))}
                 </Slider>

@@ -9,9 +9,9 @@ const Search = () => {
         <div className="grid lg:grid-cols-2 items-center gap-5 p-[22px] bg-pink-600 rounded-[51px] shadow">
           <div className="flex items-center justify-center lg:justify-start gap-5">
             <button type="submit" className="bg-[#FAE527] rounded-full p-3">
-              <CiSearch className="w-[42px] h-[42px]" />
+              <CiSearch className="w-[30px] h-[30px] sm:w-[42px] sm:h-[42px]" />
             </button>
-            <h4 className="text-white text-[32px] font-semibold font-['Nunito'] leading-normal">
+            <h4 className="text-white text-[20px] sm:text-[32px] font-semibold font-['Nunito'] leading-normal">
               Find your product
             </h4>
           </div>
