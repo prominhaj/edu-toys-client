@@ -7,8 +7,17 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { userContext } from "../../../AuthContext/AuthContext";
 
 const Header = () => {
-  const { user } = useContext(userContext);
+  const { user, logOut, success, error } = useContext(userContext);
 
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        success("LogOut SuccessFull");
+      })
+      .catch((e) => {
+        error(e.message);
+      });
+  };
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -110,6 +119,7 @@ const Header = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
+                              onClick={handleLogOut}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm font-medium text-red-500 text-start w-full"

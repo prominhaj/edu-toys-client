@@ -7,6 +7,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
 import toast from "react-hot-toast";
@@ -36,6 +38,16 @@ const AuthContext = ({ children }) => {
     });
   };
 
+  // Login
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // Log Out
+  const logOut = () => {
+    return signOut(auth);
+  };
+
   // Auth State Changed
   useEffect(() => {
     const disConnect = onAuthStateChanged(auth, (currentUser) => {
@@ -47,6 +59,8 @@ const AuthContext = ({ children }) => {
   const userInfo = {
     createAccount,
     addProfile,
+    login,
+    logOut,
     success,
     error,
     setLoading,

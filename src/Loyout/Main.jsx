@@ -13,7 +13,22 @@ const Main = () => {
       <ChakraProvider>
         <Header></Header>
         <Outlet></Outlet>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            success: {
+              style: {
+                color: 'white',
+                background: "green",
+              },
+            },
+            error: {
+              style: {
+                color: 'white',
+                background: "gray",
+              },
+            },
+          }}
+        />
       </ChakraProvider>
     </>
   );
