@@ -6,6 +6,7 @@ import MyToys from "../Pages/MyToys/MyToys";
 import AddToys from "../Pages/AddToys/AddToys";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import Error from "../Pages/Error/Error";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: '/*',
+    element: <Error></Error>
+  }
 ]);
 
 export default router;

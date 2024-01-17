@@ -17,6 +17,7 @@
     "@heroicons/react": "^2.1.1",
     "@mui/material": "^5.15.4",
     "@mui/styled-engine-sc": "^6.0.0-alpha.12",
+    "firebase": "^10.7.1",
     "framer-motion": "^10.18.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
