@@ -40,6 +40,7 @@ const ProductCard = ({ product, setLoading, shopPage }) => {
         setLoading(false);
       });
   };
+  
 
   return (
     <div
