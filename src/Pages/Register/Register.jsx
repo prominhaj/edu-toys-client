@@ -2,79 +2,51 @@
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import React, { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../../AuthContext/AuthContext";
-import { Avatar } from "primereact/avatar";
-import { Toast } from "primereact/toast";
 import { Spinner } from "@chakra-ui/react";
 
 const Register = () => {
-  const { createAccount, addProfile, setLoading, loading } =
+  const { createAccount, addProfile, success, error, loading, setLoading } =
     useContext(userContext);
+
+  const navigate = useNavigate();
 
   const [UserName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
   const [password, SetPassword] = useState("");
 
-  // Toast
-  const [visible, setVisible] = useState(false);
-  const toastBC = useRef(null);
-  const clear = () => {
-    toastBC.current.clear();
-    setVisible(false);
-  };
-
   // Create Account Auth
   const handleRegister = (e) => {
     setLoading(true);
     e.preventDefault();
     createAccount(email, password)
-      .then((result) => {
-        const user = result.user;
+      .then(() => {
         // UserName And Photo
         addProfile(UserName, photo)
           .then(() => {
-            if (!visible) {
-              setVisible(true);
-              toastBC.current.clear();
-              toastBC.current.show({
-                severity: "success",
-                summary: "Can you send me the report?",
-                sticky: true,
-                content: (props) => (
-                  <div className="flex flex-col align-items-left">
-                    <div className="flex align-items-left gap-2">
-                      <Avatar image={user.photoURL} shape="circle" />
-                      <span className="font-bold text-900">
-                        {user.displayName}
-                      </span>
-                    </div>
-                    <div className="font-medium text-lg my-3 text-900">
-                      Your Registration SuccessFull
-                    </div>
-                  </div>
-                ),
-              });
-            }
-            setLoading(false);
+            success("Register SuccessFull");
+            navigate("/");
           })
           .catch((e) => {
-            console.log(e.message);
+            error(e.message.substr(10));
           });
       })
       .catch((e) => {
-        console.log(e.message);
+        error(e.message.substr(10));
       });
   };
 
   return (
     <div className="container mx-auto px-5">
-      {
-        loading ? <div className="text-center mt-4">
-        <Spinner color="red.500" />
-        </div> : ''
-      }
+        {/* Loading */}
+        {
+            loading ? <div className="text-center mt-4">
+                <Spinner color='red.500' />
+            </div> : ""
+        }
+
       <div className="py-10">
         <form
           onSubmit={handleRegister}
@@ -161,18 +133,6 @@ const Register = () => {
             </p>
           </div>
         </form>
-      </div>
-      <div className="card flex justify-content-center">
-        <Toast
-          ref={toastBC}
-          position="top-center"
-          onRemove={clear}
-          pt={{
-            message: () => ({
-              className: "!w-[330px] !max-w-full",
-            }),
-          }}
-        />
       </div>
     </div>
   );
