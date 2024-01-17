@@ -23,6 +23,7 @@ const auth = getAuth(app);
 const AuthContext = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
 
   // Toast
   const success = (success) => toast.success(success);
@@ -67,6 +68,7 @@ const AuthContext = ({ children }) => {
   useEffect(() => {
     const disConnect = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setAuthLoading(false);
     });
     return () => disConnect();
   }, []);
@@ -82,6 +84,7 @@ const AuthContext = ({ children }) => {
     error,
     setLoading,
     loading,
+    authLoading,
     user,
   };
 

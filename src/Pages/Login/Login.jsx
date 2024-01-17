@@ -10,13 +10,16 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../../AuthContext/AuthContext";
 
 const Login = () => {
   const { login, success, error, loading, setLoading, googleAuth, githubAuth } =
     useContext(userContext);
   const navigate = useNavigate();
+  // location
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || '/';
 
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -33,7 +36,7 @@ const Login = () => {
       .then(() => {
         setLoading(false);
         success("Login SuccessFull");
-        navigate("/");
+        navigate(from, {replace: true});
       })
       .catch((e) => {
         setLoading(false);
@@ -48,7 +51,7 @@ const Login = () => {
       .then(() => {
         setLoading(false);
         success("Google Login SuccessFull");
-        navigate("/");
+        navigate(from, {replace: true});
       })
       .catch((e) => {
         setLoading(false);
@@ -63,7 +66,7 @@ const Login = () => {
       .then(() => {
         setLoading(false);
         success("Github Login SuccessFull");
-        navigate("/");
+        navigate(from, {replace: true});
       })
       .catch((e) => {
         setLoading(false);

@@ -7,10 +7,18 @@ import OfferSection from "../../Components/OfferSection/OfferSection";
 import ImageSlider from "../../Components/ImageSlider/ImageSlider";
 import Footer from "../Shared/Footer/Footer";
 import { userContext } from "../../AuthContext/AuthContext";
+import { Spinner } from "@chakra-ui/react";
 
 const Home = () => {
-  const { user } = useContext(userContext);
-  console.log(user);
+  const { user, authLoading } = useContext(userContext);
+
+  if (authLoading) {
+    return (
+      <div className="text-center mt-4">
+        <Spinner color="red.500" />
+      </div>
+    );
+  }
   return (
     <>
       <HeroSection></HeroSection>

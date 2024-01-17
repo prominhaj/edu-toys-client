@@ -76,7 +76,6 @@ const Header = () => {
                   {paddingClass("Home", "/")}
                   {paddingClass("All Toys", "/all-toys")}
                   {paddingClass("My Toys", "/my-toys")}
-                  {paddingClass("Add A Toy", "/add-toy")}
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:pr-0">
@@ -148,7 +147,6 @@ const Header = () => {
                 {paddingClass("Home", "/")}
                 {paddingClass("All Toys", "/all-toys")}
                 {paddingClass("My Toys", "/my-toys")}
-                {paddingClass("Add A Toy", "/add-toy")}
               </div>
             </Disclosure.Panel>
           </>

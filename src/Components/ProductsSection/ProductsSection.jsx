@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import products_bg from "../../assets/Product-Section/Product-bg.png";
 import {
   Button,
@@ -27,6 +27,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import Slider from "react-slick/lib/slider";
 import { IoCreateOutline } from "react-icons/io5";
 import { Rating } from "primereact/rating";
+import { userContext } from "../../AuthContext/AuthContext";
 
 // Slider Config
 const settings = {
@@ -86,6 +87,8 @@ const settings = {
 };
 
 const ProductsSection = () => {
+  const { user } = useContext(userContext);
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(null);
@@ -180,7 +183,7 @@ const ProductsSection = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          setProducts(prevState => [...prevState, newToy]);
+          setProducts((prevState) => [...prevState, newToy]);
           setLoading(false);
           toast({
             title: "Toy Add SuccessFull",
@@ -190,17 +193,16 @@ const ProductsSection = () => {
             isClosable: true,
           });
           form.reset();
-          onClose()
-        }
-        else{
+          onClose();
+        } else {
           setLoading(false);
           toast({
             title: "SameThing is Wrong Places Try Again",
             status: "error",
-            position: 'top',
+            position: "top",
             duration: 9000,
             isClosable: true,
-          })
+          });
         }
       });
   };
@@ -252,14 +254,17 @@ const ProductsSection = () => {
             </TabList>
 
             {/* Add New Toy */}
-            <div className="text-center md:text-end mt-4 md:mt-0">
-              <Button
-                className="!bg-pink-600 !text-white !text-base !font-medium !font-['Inter'] !leading-normal !rounded-md !px-3 !lg:px-5 !py-2"
-                onClick={onOpen}
-              >
-                <IoCreateOutline className="w-8 h-6" /> Add New Toy
-              </Button>
-            </div>
+            {user && (
+              <div className="text-center md:text-end mt-4 md:mt-0">
+                <Button
+                  className="!bg-pink-600 !text-white !text-base !font-medium !font-['Inter'] !leading-normal !rounded-md !px-3 !lg:px-5 !py-2"
+                  onClick={onOpen}
+                >
+                  <IoCreateOutline className="w-8 h-6" /> Add New Toy
+                </Button>
+              </div>
+            )}
+            
             {/* Modal */}
             <Modal
               size={"4xl"}
@@ -405,7 +410,9 @@ const ProductsSection = () => {
                   <ModalFooter>
                     <button
                       disabled={value ? false : true}
-                      className={`bg-pink-600 text-white text-lg font-medium font-['Inter'] leading-normal rounded-md px-4 lg:px-6 py-2 mr-6 ${value ? '' : 'cursor-not-allowed opacity-50'}`}
+                      className={`bg-pink-600 text-white text-lg font-medium font-['Inter'] leading-normal rounded-md px-4 lg:px-6 py-2 mr-6 ${
+                        value ? "" : "cursor-not-allowed opacity-50"
+                      }`}
                       type="submit"
                     >
                       Save

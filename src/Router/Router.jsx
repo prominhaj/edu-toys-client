@@ -3,10 +3,10 @@ import Main from "../Loyout/Main";
 import Home from "../Pages/Home/Home";
 import AllToys from "../Pages/AllToys/AllToys";
 import MyToys from "../Pages/MyToys/MyToys";
-import AddToys from "../Pages/AddToys/AddToys";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Error from "../Pages/Error/Error";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,11 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'my-toys',
-        element: <MyToys></MyToys>
-      },
-      {
-        path: 'add-toy',
-        element: <AddToys></AddToys>
+        element: <PrivateRoute><MyToys></MyToys></PrivateRoute>
       },
       {
         path: 'login',
