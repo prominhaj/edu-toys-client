@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../../AuthContext/AuthContext";
 
 const Login = () => {
-  const { login, success, error, loading, setLoading } =
+  const { login, success, error, loading, setLoading, googleAuth, githubAuth } =
     useContext(userContext);
   const navigate = useNavigate();
 
@@ -40,6 +40,37 @@ const Login = () => {
         error(e.message.substr(10));
       });
   };
+
+  // Google Auth
+  const handleGoogleLogin = () => {
+    setLoading(true);
+    googleAuth()
+      .then(() => {
+        setLoading(false);
+        success("Google Login SuccessFull");
+        navigate("/");
+      })
+      .catch((e) => {
+        setLoading(false);
+        error(e.message.substr(10));
+      });
+  };
+
+  // Github Auth
+  const handleGithubLogin = () => {
+    setLoading(true);
+    githubAuth()
+      .then(() => {
+        setLoading(false);
+        success("Github Login SuccessFull");
+        navigate("/");
+      })
+      .catch((e) => {
+        setLoading(false);
+        error(e.message.substr(10));
+      });
+  };
+
   return (
     <div className="container mx-auto px-5">
       {/* Loading */}
@@ -98,12 +129,14 @@ const Login = () => {
             </p>
             <div className="grid md:grid-cols-2 gap-5 items-center">
               <button
+                onClick={handleGoogleLogin}
                 className="bg-[#DC4E41] text-white text-lg font-medium font-['Inter'] leading rounded-md px-3 lg:px-5 py-[9px] flex items-center justify-center gap-2"
                 type="button"
               >
                 Sing In With <FaGoogle className="text-white text-2xl" />
               </button>
               <button
+                onClick={handleGithubLogin}
                 className="bg-black text-white text-lg font-medium font-['Inter'] leading rounded-md px-3 lg:px-5 py-[9px] flex items-center justify-center gap-2"
                 type="button"
               >

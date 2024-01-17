@@ -9,6 +9,9 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
 } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
 import toast from "react-hot-toast";
@@ -43,6 +46,18 @@ const AuthContext = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // Google Auth
+  const googleProvider = new GoogleAuthProvider();
+  const googleAuth = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  // Github Auth
+  const githubProvider = new GithubAuthProvider();
+  const githubAuth = () => {
+    return signInWithPopup(auth, githubProvider);
+  };
+
   // Log Out
   const logOut = () => {
     return signOut(auth);
@@ -61,6 +76,8 @@ const AuthContext = ({ children }) => {
     addProfile,
     login,
     logOut,
+    googleAuth,
+    githubAuth,
     success,
     error,
     setLoading,
