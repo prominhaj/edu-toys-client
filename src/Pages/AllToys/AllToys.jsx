@@ -18,7 +18,9 @@ const AllToys = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`)
+    fetch(
+      `http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -31,6 +33,25 @@ const AllToys = () => {
       .then((data) => setTotal(data.total));
   }, [currentPage, itemsPerPage]);
 
+  const handleSearch = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const search = e.target.search.value;
+    // All Data Load
+    fetch("http://localhost:5000/all-products")
+      .then((res) => res.json())
+      .then((data) => {
+        const searchProducts = data.filter((p) =>
+          p.name.toLowerCase().includes(search.toLowerCase())
+        );
+        setProducts(searchProducts);
+        setLoading(false);
+      });
+    e.target.search.value = "";
+    if (search) {
+      setProducts(products);
+    }
+  };
   return (
     <div className="container mx-auto px-5">
       {loading && (
@@ -38,7 +59,7 @@ const AllToys = () => {
           <Spinner color="red.500" />
         </div>
       )}
-      <Search></Search>
+      <Search handleSearch={handleSearch}></Search>
       <div className="text-center">
         <h4 className="text-2xl">Total Product: {products?.length}</h4>
       </div>
