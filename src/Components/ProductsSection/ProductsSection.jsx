@@ -109,39 +109,9 @@ const ProductsSection = () => {
       });
   }, []);
 
-  const handleCars = () => {
+  const categoryDataLoad = (category) => {
     setLoading(true);
-    fetch("http://localhost:5000/cars")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      });
-  };
-
-  const handleTrucks = () => {
-    setLoading(true);
-    fetch("http://localhost:5000/trucks")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      });
-  };
-
-  const handleAirPlane = () => {
-    setLoading(true);
-    fetch("http://localhost:5000/airplane")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      });
-  };
-
-  const handleBikes = () => {
-    setLoading(true);
-    fetch("http://localhost:5000/bikes")
+    fetch(`http://localhost:5000/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -228,25 +198,25 @@ const ProductsSection = () => {
           <Tabs variant="soft-rounded">
             <TabList className="flex flex-wrap items-center !justify-center gap-5">
               <Tab
-                onClick={handleCars}
+                onClick={() => categoryDataLoad("cars")}
                 _selected={{ color: "white", bg: "pink.500" }}
               >
                 Cars
               </Tab>
               <Tab
-                onClick={handleTrucks}
+                onClick={() => categoryDataLoad("trucks")}
                 _selected={{ color: "white", bg: "pink.500" }}
               >
                 Trucks
               </Tab>
               <Tab
-                onClick={handleAirPlane}
+                onClick={() => categoryDataLoad("airplane")}
                 _selected={{ color: "white", bg: "pink.500" }}
               >
                 Air Plane
               </Tab>
               <Tab
-                onClick={handleBikes}
+                onClick={() => categoryDataLoad('bikes')}
                 _selected={{ color: "white", bg: "pink.500" }}
               >
                 Bikes
@@ -429,14 +399,8 @@ const ProductsSection = () => {
 
             {/* Loading */}
             {loading ? (
-              <div className="text-center mt-10">
-                <Spinner
-                  thickness="4px"
-                  speed="0.65s"
-                  emptyColor="gray.200"
-                  color="blue.500"
-                  size="xl"
-                />
+              <div className="text-center">
+                <Spinner color="red.500" size={'lg'} />
               </div>
             ) : (
               ""
