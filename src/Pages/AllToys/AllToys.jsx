@@ -61,7 +61,9 @@ const AllToys = () => {
       )}
       <Search handleSearch={handleSearch}></Search>
       <div className="text-center">
-        <h4 className="text-2xl">Total Product: {products?.length}</h4>
+        {
+          products.length === 0 ? <h4 className="text-3xl">No Found Product</h4> : <h4 className="text-2xl">Total Product: {products?.length}</h4>
+        }
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:py-10 py-5">
         {products?.map((product) => (
@@ -74,11 +76,13 @@ const AllToys = () => {
         ))}
       </div>
       <div className="text-center pb-10">
-        <Pagination
+        {
+          products.length === 0 ?  <></> : <Pagination
           currentPage={currentPage}
           totalPages={totalPage}
           onPageChange={onPageChange}
         />
+        }
       </div>
     </div>
   );
