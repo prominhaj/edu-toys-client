@@ -23,20 +23,31 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const MyToys = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
   const { user, loading, setLoading, success, error } = useContext(userContext);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/mytoys?email=${user.email}`)
+    fetch(`http://localhost:5000/mytoys?email=${user.email}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("toy-access-token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
         setLoading(false);
+        if (!data.error) {
+        setProducts(data);
+        } else {
+          navigate("/");
+        }
       });
-  }, [user, setLoading]);
+  }, [user, setLoading, navigate]);
 
   const imageBodyTemplate = (product) => {
     return (
