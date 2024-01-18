@@ -17,7 +17,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Select,
   Spinner,
   Textarea,
   useDisclosure,
@@ -42,7 +41,7 @@ const MyToys = () => {
       .then((data) => {
         setLoading(false);
         if (!data.error) {
-        setProducts(data);
+          setProducts(data);
         } else {
           navigate("/");
         }
@@ -80,7 +79,7 @@ const MyToys = () => {
 
   const editBodyTemplate = (product) => {
     const [findProduct, setFindProduct] = useState({});
-    const [id, setId] = useState("");
+    const [ids, setIds] = useState(null);
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
     const [value, setValue] = useState(null);
@@ -89,12 +88,15 @@ const MyToys = () => {
 
     // edit data Load
     const handleEditData = (id) => {
-      setId(id);
+      setIds(id);
       fetch(`http://localhost:5000/product-id?id=${id}`)
         .then((res) => res.json())
         .then((data) => {
           setFindProduct(data);
-        });
+        })
+        .catch(e => {
+            error(e.message)
+        })
     };
 
     const handleAddNewToy = (e) => {
@@ -121,7 +123,7 @@ const MyToys = () => {
         description,
       };
 
-      fetch(`http://localhost:5000/product-id-update?id=${id}`, {
+      fetch(`http://localhost:5000/product-id-update?id=${ids}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -132,7 +134,7 @@ const MyToys = () => {
         .then((data) => {
           setLoading(false);
           if (data.modifiedCount) {
-            const filterProducts = products.filter((p) => p._id !== id);
+            const filterProducts = products.filter((p) => p._id !== ids);
             setProducts([...filterProducts, newToy]);
             success("SuccessFull Change");
             onClose();
@@ -141,13 +143,14 @@ const MyToys = () => {
           }
         });
     };
+
     return (
       <>
         <button
           className="!text-gray-700 !bg-transparent !text-base !font-medium font-['Inter'] leading-normal !rounded-md"
           onClick={() => {
-            onOpen();
             handleEditData(product._id);
+            onOpen();
           }}
         >
           <FaRegEdit className="!text-2xl" />
@@ -182,7 +185,7 @@ const MyToys = () => {
                       name="name"
                       type="text"
                       placeholder="Toy Name"
-                      defaultValue={findProduct.name}
+                      defaultValue={findProduct?.name}
                       required
                     />
                   </InputGroup>
@@ -199,7 +202,7 @@ const MyToys = () => {
                       type="number"
                       name="price"
                       placeholder="$"
-                      defaultValue={findProduct.price}
+                      defaultValue={findProduct?.price}
                       required
                     />
                   </InputGroup>
@@ -217,7 +220,7 @@ const MyToys = () => {
                       type="url"
                       name="photo"
                       placeholder="Photo URL"
-                      defaultValue={findProduct.picture}
+                      defaultValue={findProduct?.picture}
                       required
                     />
                   </InputGroup>
@@ -246,7 +249,7 @@ const MyToys = () => {
                     <Textarea
                       name="description"
                       required
-                      defaultValue={findProduct.description}
+                      defaultValue={findProduct?.description}
                       placeholder="Toy Description ..."
                     />
                   </div>
