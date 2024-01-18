@@ -36,7 +36,8 @@ const Login = () => {
       .then(() => {
         setLoading(false);
         success("Login SuccessFull");
-        navigate(from, {replace: true});
+        
+        // navigate(from, {replace: true});
       })
       .catch((e) => {
         setLoading(false);

@@ -326,7 +326,9 @@ const ProductsSection = () => {
                           className="!text-lg"
                           name="user"
                           type="text"
+                          defaultValue={user.displayName}
                           placeholder="User Name"
+                          readOnly
                           required
                         />
                       </InputGroup>
@@ -343,6 +345,8 @@ const ProductsSection = () => {
                           type="email"
                           name="email"
                           placeholder="Email"
+                          defaultValue={user.email}
+                          readOnly
                           required
                         />
                       </InputGroup>
