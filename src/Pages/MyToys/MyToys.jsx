@@ -92,7 +92,7 @@ const MyToys = () => {
       const name = form.name.value;
       const price = form.price.value;
       const picture = form.photo.value;
-      const categoryID = form.category.value;
+      const categoryID = findProduct.categoryID;
       const userName = user.displayName;
       const email = user.email;
       const ratings = value;
@@ -109,7 +109,7 @@ const MyToys = () => {
         description,
       };
 
-      fetch(`http://localhost:5000/product-id?id=${id}`, {
+      fetch(`http://localhost:5000/product-id-update?id=${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -127,7 +127,6 @@ const MyToys = () => {
           } else {
             error("Places Change Value");
           }
-          console.log(data);
         });
     };
     return (
@@ -211,20 +210,7 @@ const MyToys = () => {
                     />
                   </InputGroup>
 
-                  <Select
-                    name="category"
-                    size="md"
-                    placeholder="Select Category"
-                    defaultValue={findProduct.categoryID}
-                    required
-                  >
-                    <option value="cars">Cars</option>
-                    <option value="airplanes">Air Planes</option>
-                    <option value="trucks">Trucks</option>
-                    <option value="bikes">Bikes</option>
-                  </Select>
-
-                  <div className="flex gap-3 md:col-span-2">
+                  <div className="flex gap-3">
                     <label
                       className="bg-gray-300 text-center px-3 flex items-center font-medium text-gray-600 !py-2 text-md rounded-tl-md rounded-bl-md"
                       htmlFor="rating"
