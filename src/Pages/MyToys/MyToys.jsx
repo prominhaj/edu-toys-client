@@ -22,6 +22,7 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
+import Swal from "sweetalert2";
 
 const MyToys = () => {
   const [products, setProducts] = useState([]);
@@ -262,9 +263,42 @@ const MyToys = () => {
     );
   };
   const deleteBodyTemplate = (product) => {
+    const handleDelete = (id) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't Delete ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`http://localhost:5000/products-delete?id=${id}`, {
+            method: "DELETE",
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.acknowledged) {
+                const filterProducts = products.filter((p) => p._id !== id);
+                setProducts(filterProducts);
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your file has been deleted.",
+                  icon: "success",
+                });
+              }
+            });
+        }
+      });
+    };
+
     return (
       <>
-        <button className="bg-pink-600 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 lg:px-5 py-2">
+        <button
+          onClick={() => handleDelete(product._id)}
+          className="bg-pink-600 text-white text-base font-medium font-['Inter'] leading-normal rounded-md px-3 lg:px-5 py-2"
+        >
           Delete
         </button>
       </>
