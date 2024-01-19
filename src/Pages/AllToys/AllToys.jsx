@@ -62,7 +62,7 @@ const AllToys = () => {
       <Search handleSearch={handleSearch}></Search>
       <div className="text-center">
         {
-          products.length === 0 ? <h4 className="text-3xl">No Found Product</h4> : <h4 className="text-2xl">Total Product: {products?.length}</h4>
+          products.length === 0 ? <h4 className="text-3xl">No Found Product</h4> : <h4 className="text-2xl">Total Product: {total}</h4>
         }
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:py-10 py-5">

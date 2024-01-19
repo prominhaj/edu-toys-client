@@ -116,6 +116,7 @@ const MyToys = () => {
         name,
         price,
         picture,
+        ids,
         categoryID,
         userName,
         email,
