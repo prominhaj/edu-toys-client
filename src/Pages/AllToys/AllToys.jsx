@@ -19,7 +19,7 @@ const AllToys = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`
+      `https://edu-toys-server-zeta.vercel.app/products?page=${currentPage}&limit=${itemsPerPage}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -28,7 +28,7 @@ const AllToys = () => {
       });
 
     // Product Total
-    fetch("http://localhost:5000/totalproduct")
+    fetch("https://edu-toys-server-zeta.vercel.app/totalproduct")
       .then((res) => res.json())
       .then((data) => setTotal(data.total));
   }, [currentPage, itemsPerPage]);
@@ -38,7 +38,7 @@ const AllToys = () => {
     e.preventDefault();
     const search = e.target.search.value;
     // All Data Load
-    fetch("http://localhost:5000/all-products")
+    fetch("https://edu-toys-server-zeta.vercel.app/all-products")
       .then((res) => res.json())
       .then((data) => {
         const searchProducts = data.filter((p) =>

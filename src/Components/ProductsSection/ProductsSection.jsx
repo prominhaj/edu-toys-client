@@ -101,7 +101,7 @@ const ProductsSection = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/cars")
+    fetch("https://edu-toys-server-zeta.vercel.app/cars")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -111,7 +111,7 @@ const ProductsSection = () => {
 
   const categoryDataLoad = (category) => {
     setLoading(true);
-    fetch(`http://localhost:5000/${category}`)
+    fetch(`https://edu-toys-server-zeta.vercel.app/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -143,7 +143,7 @@ const ProductsSection = () => {
       description,
     };
 
-    fetch("http://localhost:5000/addnewtoy", {
+    fetch("https://edu-toys-server-zeta.vercel.app/addnewtoy", {
       method: "POST",
       headers: {
         "content-type": "application/json",

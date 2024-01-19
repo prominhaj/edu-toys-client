@@ -74,7 +74,7 @@ const AuthContext = ({ children }) => {
         const loggedUser = {
           email: currentUser.email,
         };
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://edu-toys-server-zeta.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

@@ -33,7 +33,7 @@ const ProductCard = ({ product, setLoading, shopPage }) => {
 
   const handleDetails = (id) => {
     setLoading(true);
-    fetch(`http://localhost:5000/product/${id}`)
+    fetch(`https://edu-toys-server-zeta.vercel.app/product/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setDetails(data);

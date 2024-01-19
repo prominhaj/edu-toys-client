@@ -31,7 +31,7 @@ const MyToys = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/mytoys?email=${user.email}`, {
+    fetch(`https://edu-toys-server-zeta.vercel.app/mytoys?email=${user.email}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("toy-access-token")}`,
@@ -89,7 +89,7 @@ const MyToys = () => {
     // edit data Load
     const handleEditData = (id) => {
       setIds(id);
-      fetch(`http://localhost:5000/product-id?id=${id}`)
+      fetch(`https://edu-toys-server-zeta.vercel.app/product-id?id=${id}`)
         .then((res) => res.json())
         .then((data) => {
           setFindProduct(data);
@@ -123,7 +123,7 @@ const MyToys = () => {
         description,
       };
 
-      fetch(`http://localhost:5000/product-id-update?id=${ids}`, {
+      fetch(`https://edu-toys-server-zeta.vercel.app/product-id-update?id=${ids}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -288,7 +288,7 @@ const MyToys = () => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/products-delete?id=${id}`, {
+          fetch(`https://edu-toys-server-zeta.vercel.app/products-delete?id=${id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
